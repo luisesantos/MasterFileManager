@@ -1,29 +1,28 @@
 package main;
 
-import java.awt.EventQueue;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JTabbedPane;
-import javax.swing.JPanel;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JTable;
-import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class MainApplication {
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.JRadioButtonMenuItem;
+
+import main.panels.MasterFileMainPanel;
+
+public class MainApplication extends JFrame {
 
 	private JFrame frame;
 	private JTextField srcTextField;
 	private JTable masterCreationTable;
-	private JTable table_1;
 	private JTextField masterFileSourceText;
 	private JTextField txtScannedfiletext;
 	private JTable maintenanceTable;
@@ -72,9 +71,13 @@ public class MainApplication {
 		JPanel welcomePanel = new JPanel();
 		tabbedPane.addTab("New tab", null, welcomePanel, null);
 		
-		JPanel masterFilePanel = new JPanel();
+		MasterFileMainPanel masterFilePanel = new MasterFileMainPanel();
 		tabbedPane.addTab("Master File", null, masterFilePanel, null);
-		masterFilePanel.setLayout(new BorderLayout(0, 0));
+		
+		//JPanel masterFilePanel = new JPanel();
+		//tabbedPane.addTab("Master File", null, masterFilePanel, null);
+		
+		//masterFilePanel.setLayout(new BorderLayout(0, 0));
 		
 		String[] columnNames = {"First Name",
                 "Last Name",
@@ -95,14 +98,10 @@ public class MainApplication {
 			     "Pool", new Integer(10), new Boolean(false)}
 			};
 		
-		masterCreationTable = new JTable(data, columnNames);
+		//JPanel controlBarPanel = new JPanel();
+		//masterFilePanel.add(controlBarPanel, BorderLayout.SOUTH);
 		
-		masterFilePanel.add(masterCreationTable, BorderLayout.CENTER);
-		
-		JPanel controlBarPanel = new JPanel();
-		masterFilePanel.add(controlBarPanel, BorderLayout.SOUTH);
-		
-		JButton btnCreate = new JButton("Create");
+	/*	JButton btnCreate = new JButton("Create");
 		controlBarPanel.add(btnCreate);
 		
 		JButton btnCleanAll = new JButton("Clean All");
@@ -122,15 +121,29 @@ public class MainApplication {
 		findSourcePanel.add(srcTextField);
 		srcTextField.setColumns(10);
 		
-		JButton btnUpload = new JButton("Find");
-		btnUpload.addActionListener(new ActionListener() {
+		JButton btnAddToMasterFile = new JButton("Find");
+		btnAddToMasterFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser c = new JFileChooser();
+			      // Demonstrate "Open" dialog:
+			      int rVal = c.showOpenDialog(MainApplication.this);
+			      if (rVal == JFileChooser.APPROVE_OPTION) {
+			        filename.setText(c.getSelectedFile().getName());
+			        dir.setText(c.getCurrentDirectory().toString());
+			      }
+			      if (rVal == JFileChooser.CANCEL_OPTION) {
+			        filename.setText("You pressed cancel");
+			        dir.setText("");
+			      }
 			}
 		});
-		findSourcePanel.add(btnUpload);
+		findSourcePanel.add(btnAddToMasterFile);
 		
-		JButton btnFind = new JButton("Upload");
-		findSourcePanel.add(btnFind);
+		JRadioButtonMenuItem rdbtnmntmGrocery = new JRadioButtonMenuItem("Grocery");
+		findSourcePanel.add(rdbtnmntmGrocery);
+		
+		JRadioButtonMenuItem rdbtnmntmTobacco = new JRadioButtonMenuItem("Tobacco");
+		findSourcePanel.add(rdbtnmntmGrocery);
 		
 		JPanel addToMasterButtonPanel = new JPanel();
 		findFileToAddPanel.add(addToMasterButtonPanel, BorderLayout.SOUTH);
@@ -140,13 +153,22 @@ public class MainApplication {
 		
 		JPanel fileToAddTablePanel = new JPanel();
 		findFileToAddPanel.add(fileToAddTablePanel, BorderLayout.CENTER);
-		fileToAddTablePanel.setLayout(new GridLayout(0, 1, 0, 0));
+		fileToAddTablePanel.setLayout(new BorderLayout());
 		
 		fileToAddTable = new JTable(data,columnNames);
-		fileToAddTablePanel.add(fileToAddTable);
+		fileToAddTablePanel.add(fileToAddTable.getTableHeader(),BorderLayout.PAGE_START);
+		fileToAddTablePanel.add(fileToAddTable,BorderLayout.CENTER);
 		
 		JPanel separator = new JPanel();
 		findFileToAddPanel.add(separator, BorderLayout.EAST);
+		
+		JPanel masterCreationTablePanel = new JPanel();
+		masterFilePanel.add(masterCreationTablePanel, BorderLayout.CENTER);
+		masterCreationTablePanel.setLayout(new BorderLayout(0, 0));
+		
+		masterCreationTable = new JTable(data, columnNames);
+		masterCreationTablePanel.add(masterCreationTable.getTableHeader(),BorderLayout.PAGE_START);
+		masterCreationTablePanel.add(masterCreationTable,BorderLayout.CENTER);*/
 		
 		JPanel verificationPanel = new JPanel();
 		tabbedPane.addTab("Scanned Files Verification", null, verificationPanel, null);
@@ -180,7 +202,8 @@ public class MainApplication {
 		westMasterFileVerificationPanel.setLayout(new BorderLayout(0, 0));
 		
 		masterFileVerificationTable = new JTable(data,columnNames);
-		westMasterFileVerificationPanel.add(masterFileVerificationTable);
+		westMasterFileVerificationPanel.add(masterFileVerificationTable.getTableHeader(),BorderLayout.PAGE_START);
+		westMasterFileVerificationPanel.add(masterFileVerificationTable,BorderLayout.CENTER);
 		
 		JPanel separatorPanel = new JPanel();
 		westMasterFileVerificationPanel.add(separatorPanel, BorderLayout.EAST);
@@ -204,10 +227,11 @@ public class MainApplication {
 		
 		JPanel tablePanel = new JPanel();
 		scannedVerificationPanel.add(tablePanel, BorderLayout.CENTER);
-		tablePanel.setLayout(new BorderLayout(0, 0));
+		tablePanel.setLayout(new BorderLayout());
 		
 		scannedTable = new JTable(data,columnNames);
-		tablePanel.add(scannedTable);
+		tablePanel.add(scannedTable.getTableHeader(),BorderLayout.PAGE_START);
+		tablePanel.add(scannedTable,BorderLayout.CENTER);
 		
 		JPanel separatorPanel2 = new JPanel();
 		scannedVerificationPanel.add(separatorPanel2, BorderLayout.EAST);
@@ -224,21 +248,25 @@ public class MainApplication {
 		
 		JPanel centralResultPanel = new JPanel();
 		resultPanel.add(centralResultPanel, BorderLayout.CENTER);
-		centralResultPanel.setLayout(new BorderLayout(0, 0));
+		centralResultPanel.setLayout(new GridLayout(2, 1, 0, 0));
 		
 		JPanel resultTablePanel = new JPanel();
-		centralResultPanel.add(resultTablePanel, BorderLayout.NORTH);
-		resultTablePanel.setLayout(new GridLayout(0, 1, 0, 0));
+		centralResultPanel.add(resultTablePanel);
+		resultTablePanel.setLayout(new BorderLayout());
 		
 		resultOneTable = new JTable(data,columnNames);
-		resultTablePanel.add(resultOneTable);
+		resultOneTable.setFillsViewportHeight(true);
+		resultTablePanel.add(resultOneTable.getTableHeader(),BorderLayout.PAGE_START);
+		resultTablePanel.add(resultOneTable,BorderLayout.CENTER);
 		
 		JPanel resultTablePanel2 = new JPanel();
 		centralResultPanel.add(resultTablePanel2);
-		resultTablePanel2.setLayout(new GridLayout(0, 2, 0, 0));
+		resultTablePanel2.setLayout(new BorderLayout());
 		
 		resultTwoTable = new JTable(data,columnNames);
-		resultTablePanel2.add(resultTwoTable);
+		resultTwoTable.setFillsViewportHeight(true);
+		resultTablePanel2.add(resultTwoTable.getTableHeader(),BorderLayout.PAGE_START);
+		resultTablePanel2.add(resultTwoTable,BorderLayout.CENTER);
 		
 		JPanel maintenancePanel = new JPanel();
 		tabbedPane.addTab("Maintenance", null, maintenancePanel, null);
@@ -257,13 +285,18 @@ public class MainApplication {
 		JButton btnFind_3 = new JButton("Find");
 		maintenanceSourceFilePanel.add(btnFind_3);
 		
-		maintenanceTable = new JTable(data,columnNames);
-		maintenancePanel.add(maintenanceTable, BorderLayout.CENTER);
-		
 		JPanel maintenanceControlBarPanel = new JPanel();
 		maintenancePanel.add(maintenanceControlBarPanel, BorderLayout.SOUTH);
 		
 		JButton btnSave_1 = new JButton("Save");
 		maintenanceControlBarPanel.add(btnSave_1);
+		
+		JPanel maintenanceTablePanel = new JPanel();
+		maintenancePanel.add(maintenanceTablePanel, BorderLayout.CENTER);
+		maintenanceTablePanel.setLayout(new BorderLayout(0, 0));
+		
+		maintenanceTable = new JTable(data,columnNames);
+		maintenanceTablePanel.add(maintenanceTable.getTableHeader(),BorderLayout.PAGE_START);
+		maintenanceTablePanel.add(maintenanceTable,BorderLayout.CENTER);
 	}
 }
