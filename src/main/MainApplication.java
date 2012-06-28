@@ -3,31 +3,25 @@ package main;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JRadioButtonMenuItem;
 
 import main.panels.MasterFileMainPanel;
 
 public class MainApplication extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
-	private JTextField srcTextField;
-	private JTable masterCreationTable;
 	private JTextField masterFileSourceText;
 	private JTextField txtScannedfiletext;
 	private JTable maintenanceTable;
 	private JTextField maintenanceSourceFile;
-	private JTable fileToAddTable;
 	private JTable scannedTable;
 	private JTable masterFileVerificationTable;
 	private JTable resultOneTable;
@@ -74,11 +68,6 @@ public class MainApplication extends JFrame {
 		MasterFileMainPanel masterFilePanel = new MasterFileMainPanel();
 		tabbedPane.addTab("Master File", null, masterFilePanel, null);
 		
-		//JPanel masterFilePanel = new JPanel();
-		//tabbedPane.addTab("Master File", null, masterFilePanel, null);
-		
-		//masterFilePanel.setLayout(new BorderLayout(0, 0));
-		
 		String[] columnNames = {"First Name",
                 "Last Name",
                 "Sport",
@@ -98,77 +87,6 @@ public class MainApplication extends JFrame {
 			     "Pool", new Integer(10), new Boolean(false)}
 			};
 		
-		//JPanel controlBarPanel = new JPanel();
-		//masterFilePanel.add(controlBarPanel, BorderLayout.SOUTH);
-		
-	/*	JButton btnCreate = new JButton("Create");
-		controlBarPanel.add(btnCreate);
-		
-		JButton btnCleanAll = new JButton("Clean All");
-		controlBarPanel.add(btnCleanAll);
-		
-		JPanel findFileToAddPanel = new JPanel();
-		masterFilePanel.add(findFileToAddPanel, BorderLayout.WEST);
-		findFileToAddPanel.setLayout(new BorderLayout(0, 0));
-		
-		JPanel findSourcePanel = new JPanel();
-		findFileToAddPanel.add(findSourcePanel, BorderLayout.NORTH);
-		
-		JLabel srcLabel = new JLabel("Source:");
-		findSourcePanel.add(srcLabel);
-		
-		srcTextField = new JTextField();
-		findSourcePanel.add(srcTextField);
-		srcTextField.setColumns(10);
-		
-		JButton btnAddToMasterFile = new JButton("Find");
-		btnAddToMasterFile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JFileChooser c = new JFileChooser();
-			      // Demonstrate "Open" dialog:
-			      int rVal = c.showOpenDialog(MainApplication.this);
-			      if (rVal == JFileChooser.APPROVE_OPTION) {
-			        filename.setText(c.getSelectedFile().getName());
-			        dir.setText(c.getCurrentDirectory().toString());
-			      }
-			      if (rVal == JFileChooser.CANCEL_OPTION) {
-			        filename.setText("You pressed cancel");
-			        dir.setText("");
-			      }
-			}
-		});
-		findSourcePanel.add(btnAddToMasterFile);
-		
-		JRadioButtonMenuItem rdbtnmntmGrocery = new JRadioButtonMenuItem("Grocery");
-		findSourcePanel.add(rdbtnmntmGrocery);
-		
-		JRadioButtonMenuItem rdbtnmntmTobacco = new JRadioButtonMenuItem("Tobacco");
-		findSourcePanel.add(rdbtnmntmGrocery);
-		
-		JPanel addToMasterButtonPanel = new JPanel();
-		findFileToAddPanel.add(addToMasterButtonPanel, BorderLayout.SOUTH);
-		
-		JButton btnNewButton = new JButton("Add To Master ->");
-		addToMasterButtonPanel.add(btnNewButton);
-		
-		JPanel fileToAddTablePanel = new JPanel();
-		findFileToAddPanel.add(fileToAddTablePanel, BorderLayout.CENTER);
-		fileToAddTablePanel.setLayout(new BorderLayout());
-		
-		fileToAddTable = new JTable(data,columnNames);
-		fileToAddTablePanel.add(fileToAddTable.getTableHeader(),BorderLayout.PAGE_START);
-		fileToAddTablePanel.add(fileToAddTable,BorderLayout.CENTER);
-		
-		JPanel separator = new JPanel();
-		findFileToAddPanel.add(separator, BorderLayout.EAST);
-		
-		JPanel masterCreationTablePanel = new JPanel();
-		masterFilePanel.add(masterCreationTablePanel, BorderLayout.CENTER);
-		masterCreationTablePanel.setLayout(new BorderLayout(0, 0));
-		
-		masterCreationTable = new JTable(data, columnNames);
-		masterCreationTablePanel.add(masterCreationTable.getTableHeader(),BorderLayout.PAGE_START);
-		masterCreationTablePanel.add(masterCreationTable,BorderLayout.CENTER);*/
 		
 		JPanel verificationPanel = new JPanel();
 		tabbedPane.addTab("Scanned Files Verification", null, verificationPanel, null);
